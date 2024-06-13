@@ -181,7 +181,9 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
     mybatis.type-aliases-package=com.example.spring02.domain
     ```
 
-    - 
+    - MyBatis 적용
+        - Spring, resource/WEB-INF 위치에 root-context.xml에 DB, Mybatis 설정
+        - SpringBoot, application.properties + Config.java로 변경
 
     - Node.js   
     - React setting

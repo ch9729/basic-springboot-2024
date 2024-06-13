@@ -3,15 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.spring02.mapper.TodoMapper">
+<mapper namespace="com.hugo83.spring02.mapper.TodoMapper">
 
     <select id="selectTodos" resultType="hashmap">
-    SELECT TNO
-        , TITLE
-        , DUEDATE
-        , WRITER
-        , ISDONE
-    FROM TODOS
+        SELECT TNO
+             , TITLE
+             , DUEDATE
+             , WRITER
+             , ISDONE
+          FROM TODOS
     </select>
 
     <select>
