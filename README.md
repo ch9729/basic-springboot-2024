@@ -84,20 +84,104 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
 
 ## 2일차
 - Oracle 도커로 설치
-    - 설치되어 있는 Oracle 삭제
-    
+    - Docker는 Virtual Machine을 업그레이드한 시스템
+    - 윈도우에 서비스 내(services.msc) Oracle 관련 서비스 종료
+    - Docker에서 Oracle 이미지 컨테이너를 다운로드 후 실행
+    - Docker 설치시 오류 Docker Desktop -WSL Update failed
+        - Docker Desktop 실행종료 후
+        - Windows 업데이트 실행 최신판 재부팅
+        - https://github.com/microsoft/WSL/releases, wsl.2.x.x.x64.msi 다운로드 설치 한 뒤
+        - Docker Desktop 재설치
+    - Oracle 최신판 설치
+    ```shell
+    > docker --version
+    > docker pull container-registry.oracle.com/database/free:latest
+    latest: ....
+    ... : Download complete
+    > docker images
+    REPOSITORY                                    TAG       IMAGE ID       CREATED       SIZE
+    container-registry.oracle.com/database/free   latest    7510f8869b04   7 weeks ago   8.7GB
+    > docker run -d -p 1521:1521 --name oracle container-registry.oracle.com/database/free
+    ....
+    > docker logs oracle
+    ...
+    ####################
+    DATABASE IS READY TO USE!
+    ####################
+    ...
+    > docker exec it oracle bash
+    bash-4.4$
+    ```
+
+
+    - oracle system 사용자 비번 oracle 설정
+    ```shell
+    bash-4.4$ ./setPassword.sh oracle
+    ```
+
+
+    - Oracle 접속확인
+        - DBeaver 탐색기 > Create > Connection
 
 - Database 설정
-    - H2 DB - Spring Boot에서 손쉽게 사용한 Inmemory DB, Oracle, MySql, SQLServer과 쉽게 호환
     - Oracle - 운영시 사용할 DB
     - MySQL - Optional 설명할 DB
     - Oracle PKNUSB / pknu_p@ss 로 생성
-        - 콘솔
-        ```shell
-        > sqlplus system/password
-        SQL>
-        ```
+    - 콘솔
+    ```shell
+    > sqlplus system/password
+    SQL> select name from v$database;
+    // 서비스명 확인
+    SQL> ALTER session SET "_oracle_script" = true; 
+    // 사용자 생성
+    SQL> create user pknusb identified by "pknu_p@ss";
+    // 사용자 권한
+    SQL> grant CONNECT, RESOURCE, CREATE SESSION, CREATE TABLE, CREATE SEQUENCE, CREATE VIEW to pknusb;
+    // 사용자 계정 테이블 공간설정, 공간쿼터
+    SQL> alter user pknusb default tablespace users;
+    SQL> alter user pknusb quota unlimited on users;
+    ```
 
+    - H2 DB - Spring Boot에서 손쉽게 사용한 Inmemory DB, Oracle,  MySql, SQLServer과 쉽게 호환
+    - MySQL - Optional 설명한 DB
+
+- Spring Boot + MyBatis
+    - application name : spring02
+    - Spring Boot 3.3.x 에는 MyBatis 없음
+    - Dependency 중 DB(H2,Oracle, MySQL)가 선택되어 있으면 웹서버 실행이 안됨
+    
+    - build.gradle 확인
+    - application.properties 추가작성
+    ```properties
+    spring.application.name=spring02
+
+    ## 포트변경
+    server.port=8091
+
+    ## 로그색상
+    spring.output.ansi.enabled=always
+
+    ## 수정사항이 있으면 서버 자동 재빌드 설정
+    spring.devtools.livereload.enabled=true
+    spring.devtools.restart.enabled=true
+
+    ## 로그레벨 설정
+    logging.level.org.springframework=info
+    logging.level.org.zerock=debug
+
+    ## Oracle 설정
+    spring.datasource.username=pknusb
+    spring.datasource.password=pknu_p@ss
+    spring.datasource.url=jdbc:oracle:thin@localhost:11521:FREE
+    spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+
+    ## MyBatis 설정
+    ## mapper 폴더 및에 여러가지 폴더가 내재, 확장자는 .xml이지만 파일명은 뭐든지
+    mybatis.mapper-locations=classpath:mapper/**/*.xml
+    mybatis.type-aliases-package=com.example.spring02.domain
+    ```
+
+    - 
 
     - Node.js   
     - React setting
