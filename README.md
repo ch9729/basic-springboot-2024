@@ -60,6 +60,7 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
             - JDK 17 ..... error 메시지
             - Java JDK 잘못된 설치 x86(32bit) x64비트 혼용 설치
             - eclipse adoptium jdk 17 새로 설치, 시스템 환경설정
+            - VS Code 재시작
             - build.gradle SpringBoot Framework 버전을 다운 3.3.0 -> 3.2.6
 
     - 프로젝트 생성 후
@@ -95,6 +96,7 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
     - Oracle 최신판 설치
     ```shell
     > docker --version
+    Docker version 26.1.1, build 4cf5afa
     > docker pull container-registry.oracle.com/database/free:latest
     latest: ....
     ... : Download complete
@@ -113,12 +115,10 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
     bash-4.4$
     ```
 
-
     - oracle system 사용자 비번 oracle 설정
     ```shell
     bash-4.4$ ./setPassword.sh oracle
     ```
-
 
     - Oracle 접속확인
         - DBeaver 탐색기 > Create > Connection
@@ -155,11 +155,12 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
         - Thymeleaf
         - Oracle Driver
         - Mybatis starter
-    - Dependency 중 DB(H2,Oracle, MySQL)가 선택되어 있으면 웹서버 실행이 안됨. application.properties에 DB설정 우선
     
     - build.gradle 확인
     - application.properties 추가작성
-    ```properties
+    - Dependency 중 DB(H2, Oracle, MySQL)가 선택시 application.properties에 DB설정이 안되면 서버 실행 안됨
+    
+  ```properties
     spring.application.name=spring02
 
     ## 포트변경
@@ -179,6 +180,7 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
     ## Oracle 설정
     spring.datasource.username=pknusb
     spring.datasource.password=pknu_p@ss
+    #spring.datasource.url=jdbc:oracle:thin@localhost:1521:XE 
     spring.datasource.url=jdbc:oracle:thin@localhost:11521:FREE
     spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
 
@@ -193,6 +195,7 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
         - SpringBoot, application.properties + Config.java로 변경
 
     - 개발시 순서
+        0. application.properties jdbc:oracle:thin:@localhost:1521:FREE , thin뒤 :이 삭제되어 있었음.
         1. Database 테이블 생성
         2. MyBatis 설정 -> /config/MyBatisConfig.java
         3. 테이블과 일치하는 클래스 (domain, entity, dto, vo(readonly), etc...) 생성

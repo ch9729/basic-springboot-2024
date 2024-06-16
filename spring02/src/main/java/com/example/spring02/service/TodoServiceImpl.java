@@ -9,13 +9,13 @@ import com.example.spring02.domain.Todo;
 import com.example.spring02.mapper.TodoMapper;
 
 @Service
-public class TodoServiceImpl implements TodoService{
+public class TodoServiceImpl implements TodoService {
 
     @Autowired
     TodoMapper todoMapper;
 
     @Override
-    public List<Todo> getTodos() throws Exception { 
+    public List<Todo> getTodos() throws Exception {
         return todoMapper.selectTodos();
     }
 
@@ -23,5 +23,4 @@ public class TodoServiceImpl implements TodoService{
     public Todo getTodo(int tno) throws Exception {
         return todoMapper.selectTodo(tno);
     }
-    
 }

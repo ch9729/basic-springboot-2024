@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hugo83.spring02.mapper.TodoMapper">
+<mapper namespace="com.example.spring02.mapper.TodoMapper">
 
-    <select id="selectTodos" resultType="com.example.spring02.domain.Todo">
+    <select id="selectTodos" resultType="Todo">
         SELECT TNO
              , TITLE
              , DUEDATE
@@ -14,9 +14,8 @@
           FROM TODOS
     </select>
 
-    <select id="selectTodo" resultType="com.example.spring02.domain.Todo"
-                            parameterType="int">
-                             SELECT TNO
+    <select id="selectTodo" resultType="Todo" parameterType="int">
+          SELECT TNO
              , TITLE
              , DUEDATE
              , WRITER
