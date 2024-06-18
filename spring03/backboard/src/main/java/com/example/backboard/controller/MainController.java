@@ -6,6 +6,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
 // import org.springframework.web.bind.annotation.RequestParam;
 // import org.springframework.web.bind.annotation.ResponseBody;
+// import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -17,5 +19,11 @@ public class MainController {
         log.info("getHello(); 실행.");
         return "hello";
     }
+
+    @GetMapping("/")
+    public String getMain() {
+        return "redirect:/board/list"; //localhost:8080/ -> localhost:8080/board/list 변경
+    }
+    
     
 }

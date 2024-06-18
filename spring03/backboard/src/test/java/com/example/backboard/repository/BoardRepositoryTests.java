@@ -3,11 +3,17 @@ package com.example.backboard.repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
+
 
 import com.example.backboard.entity.Board;
 
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 public class BoardRepositoryTests {
@@ -29,5 +35,35 @@ public class BoardRepositoryTests {
         this.boardRepository.save(board2);
         System.out.println("Board 테스트 완료!!");
     }
+
+    // @Test
+    // void testSelectBoard(){
+    //     List<Board> all = this.boardRepository.findAll(); //select * from board
+    //     assertEquals(4, all.size());
+    //     System.out.println(all.size());
+
+    //     Board bd = all.get(0); //게시글중 가장 첫번째 값
+    //     assertEquals(3,bd.getBno()); //첫번째 게시글의 PK값이 1인지 확인
+    //     System.out.println(bd.getBno());
+    // }
+
+    @Test
+    void testUpdateBoard() {
+        Optional<Board> bd = this.boardRepository.findById(1L);
+        assertTrue(bd.isPresent()); //bno가 1번인 게시글이 객체 넘어왔는 확인
+        Board ubd = bd.get();
+        ubd.setContent("테스트로 수정합니다.");
+        this.boardRepository.save(ubd); //save() id가 없으면 INSERT, 있으면 UPDATE 쿼리 자동실행
+        System.out.println("수정완료!!");
+    }
+
+    // @Test
+    // void testDelteBoard(){
+    //     Optional<Board> bd = this.boardRepository.findById(153L);
+    //     assertTrue(bd.isPresent());
+    //     Board dbd = bd.get();
+    //     this.boardRepository.delete(dbd);
+    //     System.out.println("삭제완료!!");
+    // }
 
 }
