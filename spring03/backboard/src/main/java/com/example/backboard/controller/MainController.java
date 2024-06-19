@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 // import org.springframework.web.bind.annotation.ResponseBody;
 // import org.springframework.web.bind.annotation.RequestParam;
 
-
-
 @Controller
 @Log4j2
 public class MainController {
