@@ -290,6 +290,9 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
     6. /controller/BoardController.java에 /board/detail/{bno} 실행 메서드 작성
     7. /templates/board/detail.html 생성
 
+        <img src="https://raw.githubusercontent.com/ch9729/basic-springboot-2024/main/images/sp003.png" width="730">
+
+
     8. /templates/board/detail.html에 댓글영역 추가
     9. /service/ReplyService.java 생성, 댓글 저장 메서드 작성
     10. /controller/ReplyController.java 생성, /reply/create/{bno} 포스트매핑 메서드 작성
@@ -300,6 +303,9 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
         - https://www.getbootstrap.com 다운로드 후 압축 해제
         - bootstrap.min.css, bootstrap.min.js templates/static에 위치
     12. /templates/board/list.html, detail.html 부트스트랩 적용
+
+        <img src="https://raw.githubusercontent.com/ch9729/basic-springboot-2024/main/images/sp004.png" width="730">
+
 
 ## 6일차
 - Spring Boot JPA 프로젝트 개발 계속
@@ -320,6 +326,10 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
     15. 댓글등록에도 반영. ReplyForm, ReplyController, detail.html 작업(12~14 내용과 유사)
     16. detail.html 경고영역 div는 create.html에서 복사해서 가져올 것
     17. (문제) 각 입력창에 공백을 넣었을 때 입력되는 문제 @NotEmpty는 스페이스를 허용 -> @NotBlank로 변경
+
+        <img src="https://raw.githubusercontent.com/ch9729/basic-springboot-2024/main/images/sp005.png" width="730">
+
+
     18.  /templates/layout.html에 네비게이션바(navbar) 추가
     19. 테스트로 대량 데이터 추가
 
