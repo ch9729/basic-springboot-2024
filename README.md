@@ -350,6 +350,9 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
         - /templates/board/list.html 하단 페이징 버튼 추가, thymeleaf 기능추가
         - /service/BoardService.java getList()  최신순 역정렬로 변경
         - /templates/board/list.html에 게시글 번호 수정
+
+        <img src="https://raw.githubusercontent.com/ch9729/basic-springboot-2024/main/images/sp006.png" width="730">
+
     2. /templates/board/list.html td 뱃지태그 추가
 
     3. H2 -> Oracle로 DB변경
