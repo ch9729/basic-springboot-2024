@@ -41,4 +41,8 @@ public class Reply {
     // RelationShip 다대일 설정.
     @ManyToOne
     private Board board;
+
+    // 사용자가 여러개의 게시글을 작성할 수 있다. 다대일 설정
+    @ManyToOne
+    private Member writer;
 }
