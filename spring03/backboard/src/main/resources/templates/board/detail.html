@@ -31,7 +31,7 @@
                             <span th:if="${reply.writer != null}"
                                   th:text="${reply.writer.username}"></span>
                         </div>
-                        <div th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                        <div th:text="${#temporals.format(reply.createDate, 'yyyy-MM-dd HH:mm')}"></div>
                     </div>
                 </div>
             </div>
