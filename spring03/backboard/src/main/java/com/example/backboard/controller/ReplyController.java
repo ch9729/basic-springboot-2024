@@ -1,5 +1,6 @@
 package com.example.backboard.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.backboard.entity.Board;
 import com.example.backboard.entity.Member;
+import com.example.backboard.entity.Reply;
 import com.example.backboard.service.BoardService;
 import com.example.backboard.service.MemberService;
 import com.example.backboard.service.ReplyService;
@@ -20,6 +22,9 @@ import java.security.Principal;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.server.ResponseStatusException;
+
 
 @RequestMapping("/reply")
 @RequiredArgsConstructor
@@ -32,7 +37,7 @@ public class ReplyController {
     private final MemberService memberService; //작성자 입력위해 추가
 
     //Principal 객체 추가하면 로그인한 사용자명(Member객체)을 알 수 있음.
-    @PreAuthorize("isAuthenticated()") //로그인시만 작성가능
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/{bno}")
     public String create(Model model, @PathVariable("bno") Long bno,
                         @Valid ReplyForm replyForm, BindingResult bindingResult, 
@@ -44,8 +49,47 @@ public class ReplyController {
             model.addAttribute("board", board);
             return "board/detail";
         } 
-        this.replyService.setReply(board, replyForm.getContent(), writer);
+        Reply reply = this.replyService.setReply(board, replyForm.getContent(), writer);
         log.info("ReplyController 댓글저장 처리완료");
-        return String.format("redirect:/board/detail/%s", bno);
+        return String.format("redirect:/board/detail/%s#reply_%s", bno, reply.getRno());    //새로 생성된 게시글 위치로
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/modify/{rno}")
+    public String modify(ReplyForm replyForm, @PathVariable("rno") Long rno, Principal principal) {
+        Reply reply = this.replyService.getReply(rno);
+
+        if(!reply.getWriter().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        replyForm.setContent(reply.getContent());
+        return "reply/modify"; // templates/reply/modify.html
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/modify/{rno}")
+    public String modify(@Valid ReplyForm replyForm, @PathVariable("rno") Long rno, BindingResult bindingResult, Principal principal){
+        if(bindingResult.hasErrors()) {
+            return "reply/modify";
+        }
+        Reply reply = this.replyService.getReply(rno);
+        if(!reply.getWriter().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        this.replyService.modReply(reply, replyForm.getContent());
+        //수정이 완료되면 그 댓글로 위치!
+        return String.format("redirect:/board/detail/%s#reply_%s", reply.getBoard().getBno(), reply.getRno());
+    }
+    
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/delete/{rno}")
+    public String delete(@PathVariable("rno")Long rno, Principal principal) {
+        Reply reply = this.replyService.getReply(rno);
+        if(!reply.getWriter().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+
+        this.replyService.remReply(reply);
+        return String.format("redirect:/board/detail/%s", reply.getBoard().getBno());
     }
 }
