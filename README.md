@@ -453,44 +453,26 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
       - /service/BoardService.java getList() 메서드 추가 생성
       - /controller/BoardController.java list() 메서드 추가
       - /templates/board/list.html 검색창 추가, searchForm 폼 영역 추가, 페이징 영역 수정, javaScript 추가
-      
-   4. 마크다운
-      - 마크다운 뷰, 마크다운 에디터
-   
-   - 검색 기능
-   - 카테고리 추가(게시판, QnA, 공지사항)
-   - 비밀번호 찾기, 비밀번호 변경
-   - 조회수 추가
-   
-   - 리액트 적용
-  - 리액트 프론트엔드 설정
-  - thymeleaf -> 리액트로 변경
-  - Spring Boot RestAPI 작업
-
-   - AWS 라이트세일 가입
-  - 서버 접속 프로그램 설정
-  - 웹서버 배포
-  - 8080 -> 80 서버
-  - http -> https 변경
 
 ## 10일차
 - Spring Boot JPA 프로젝트 개발 계속
     1. 검색 가능 - JPA Query
         - @Query 애노테이션 직접 쿼리를 작성
-            - SQL의 표준 쿼리와는 차이가 있다(객체지향 쿼리, JPQL)
-            - 복잡한 쿼리문이기에 JpaRepository가 자동으로 만들어줄 수 없을 때
-        - /repository/BoardRepository.java findAllByKeyword() 메서드 작성
-        - JPQL를 @Query("")에 작성
+        - 단순 쿼리가 아니라서 JpaRepository가 자동으로 만들어 줄수 없을 때 사용
+        - DB의 표준쿼리와 차이가 있음(Java Entity와 일치)
+        - /repository/BoardRepository.java findAllByKeyword() 메서드 추가
+        - JPA Query @Query("")에 작성
         - /service/BoardSrevice.java getList() 수정
+
+
     2. 마크다운 적용, 마크다운 에디터 추가
-        - Wysiwyf 에디터 - CKEditer(https://ckeditor.com/), TinyMCE...
-        - simplemde(https://simplemde.com/) Download.zip 클릭 혹은 깃허브에 CDN 링크를 복사 layout.html에 링크 추가
+        - Wysiwyf 에디터 - CKEditer(https://ckeditor.com/), TinyMCE
+        - simplemde(https://simplemde.com/)깃헙에 CDN 링크복사 layout.html 링크추가
         - create.html에 tesxtarea id content를 simplemde로 변환하는 js 추가
         - detail.html textarea content simplemde js추가
-
         - (설정) build.gradle 마크다운 뷰 디펜던시 추가
         - /common/CommontUtil.java 생성
-        - /templates/board/detail.html 마크다운 뷰 적용
+        - /templates/board/detail.html 마크다운 뷰어 적용
 
         
         <img src="https://raw.githubusercontent.com/ch9729/basic-springboot-2024/main/images/sp009.png" width="730">
@@ -502,12 +484,32 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
         - /entity/Category.java 클래스 추가
         - /repository/CategoryRepository.java 인터페이스 추가
         - /service/CategoryService.java 추가
-        - /service/BoardService.java 조회조건에 카테고리 추가 수정
-        - 카테고리를 자유게시판, 질문응답게시판으로 분리
-        - /templates/layout.html navbar.html 추가 기입
-        - /controller/BoardController.java GetMapping 메서드에 카테고리를 추가
+        - /entity/Board.java category 속성 추가
+        - /service/BoardService.java getList(), searchBoard(), **setBoard()** 추가 수정
+        - 카테고리를 자유게시판, 질문응답게시판 분리
+        - /templates/layout.html. 사이드바 태그 추가 기입
+        - /controller/BoardController.java GetMapping 메서드에 카테고리 매개변수 추가
+        - /templates/board/list.html 카테고리 변수 추가
+        - /controller/BoardController.java create() GET, POST 메서드에 category 추가!
+
     4. 조회수 추가
         - /entity/Board.java 조회수 필드 추가
         - /service/BoardService.java 메서드 추가
         - /controller/BoardController.java detail() 메서드 수정
         - /templates/board/list.html 조회수 컬럼 추가
+
+    - 검색 기능
+	- 카테고리 추가(게시판, QnA, 공지사항)
+	- 비밀번호 찾기, 비밀번호 변경
+	- 조회수 추가
+	
+	- 리액트 적용
+    - 리액트 프론트엔드 설정
+    - thymeleaf -> 리액트로 변경
+    - Spring Boot RestAPI 작업
+
+	- AWS 라이트세일 가입
+    - 서버 접속 프로그램 설정
+    - 웹서버 배포
+    - 8080 -> 80 서버
+    - http -> https 변경

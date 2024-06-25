@@ -4,6 +4,7 @@ package com.example.backboard.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.backboard.common.NotFoundException;
 import com.example.backboard.entity.Member;
 import com.example.backboard.repository.MemberRepository;
 import com.example.backboard.security.MemberRole;
@@ -34,11 +35,11 @@ public class MemberService {
     }
 
     // 사용자를 가져오는 메서드
-    public Member getMember(String username) throws Exception{
+    public Member getMember(String username){
         Optional<Member> member = this.memberRepository.findByUsername(username);
         if(member.isPresent())
         return member.get();
         else
-            throw new Exception("Member not found!");
+            throw new NotFoundException("Member not found!");
     }
 }
