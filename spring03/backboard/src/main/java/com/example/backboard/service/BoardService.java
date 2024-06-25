@@ -45,16 +45,6 @@ public class BoardService {
         return this.boardRepository.findAll(pageable);
     }
 
-    // 페이징 되는 리스트 메서드
-    public Page<Board> getList(int page,String keyword) {
-      List<Sort.Order> sorts = new ArrayList<>();
-      sorts.add(Sort.Order.desc("createDate"));
-      Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts)); // pageSize를 동적으로도 변경할 수 있음. 나중에..
-
-      Specification<Board> spec = searchBoard(keyword);
-      return this.boardRepository.findAll(spec,pageable);
-  }
-
     public Board getBoard(Long bno) {
         Optional<Board> board = this.boardRepository.findByBno(bno);
         if(board.isPresent()) {   // 데이터가 존재하면 (board가 null이 아니라면)
@@ -105,5 +95,16 @@ public class BoardService {
                         );
         }
       };
+    }
+
+    public Page<Board> getList(int page, String keyword) {
+      List<Sort.Order> sorts = new ArrayList<>();
+      sorts.add(Sort.Order.desc("createDate"));
+      Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));   // pageSize를 동적으로도 변경할 수 있음. 나중에...
+      
+      // Specification<Board> spec = searchBoard(keyword);
+      // return this.boardRepository.findAll(spec, pageable);   // Specification 인터페이스로 쿼리 생성로직 만들어서
+      return this.boardRepository.findAllByKeyword(keyword, pageable);
+  
     }
 }

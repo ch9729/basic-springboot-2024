@@ -2,6 +2,8 @@ package com.example.backboard.repository;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.backboard.entity.Board;
@@ -26,4 +28,13 @@ public interface BoardRepository extends JpaRepository<Board,Long>{
     Page<Board> findAll(Pageable pageable);
 
     Page<Board> findAll(Specification<Board> spec, Pageable pageable);
+
+    // DBeaver에서 사용할 수 있는 SQL 쿼리는 아님!
+    @Query("select distinct b " +
+           " from Board b " +
+           " left join Reply r on r.board = b " + 
+           " where b.title like %:kw% " + 
+           " or b.content like %:kw% " + 
+           " or r.content like %:kw% ")
+    Page<Board> findAllByKeyword(@Param("kw") String kw, Pageable pageable);
 }
