@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import org.springframework.data.jpa.domain.Specification; // 복합쿼리 생성용
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import com.example.backboard.common.NotFoundException;
@@ -27,6 +26,7 @@ import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -150,5 +150,22 @@ public class BoardService {
       return this.boardRepository.findAll(spec, pageable);   // Specification 인터페이스로 쿼리 생성로직 만들어서
       // return this.boardRepository.findAllByKeyword(keyword, pageable);
   
+    }
+
+    //조회수 증가 메서드
+    @Transactional  //조회하면서 업데이트하므로!
+    public Board hitBoard(Long bno) {
+      // Optional 기능 널체크
+      Optional<Board> oboard = this.boardRepository.findByBno(bno);
+
+      if(oboard.isPresent()) {
+        Board board = oboard.get();
+        //board.setHit(board.getHit() + 1); //!!!! 이대로 쓰면 예외발생
+        board.setHit(Optional.ofNullable(board.getHit()).orElse(0) +1);
+        
+        return board;
+      }else {
+        throw new NotFoundException("Board not found!");
+      }
     }
 }

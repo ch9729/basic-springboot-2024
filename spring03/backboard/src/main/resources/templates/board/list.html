@@ -21,6 +21,7 @@
         <th>번호</th>
         <th style="width: 60%">제목</th>
         <th>작성자</th>
+        <th>조회수</th>
         <th>작성일</th>
       </tr>
     </thead>
@@ -38,7 +39,10 @@
         <td>
           <span th:if="${board.writer != null}" th:text="${board.writer.username}"></span>
         </td>
-        <td th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+        <!-- 조회수 추가 24.06.26-->
+         <td><span th:text="${board.hit}"></span></td>
+        <!-- <td th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd HH:mm')}"></td> -->
+        <td th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd')}"></td>
       </tr>
     </tbody>
   </table>
@@ -65,11 +69,11 @@
       <!-- 다음버튼 -->
       <li th:classappend="${!paging.hasNext} ? disabled" class="page-item">
         <!-- <a th:href="@{|?page=${paging.number+1}|}" class="page-link">〉</a> -->
-        <a th:data-page="${paging.number+1}" class="page-link" href="javascript:void(0)">〈</a>
+        <a th:data-page="${paging.number+1}" class="page-link" href="javascript:void(0)">〉</a>
       </li>
       <li th:classappend="${!paging.hasNext} ? disabled" class="page-item">
         <!-- <a th:href="@{|?page=${paging.totalPages-1}|}" class="page-link">》</a> -->
-        <a th:data-page="${paging.totalPages-1}" class="page-link" href="javascript:void(0)">《</a>
+        <a th:data-page="${paging.totalPages-1}" class="page-link" href="javascript:void(0)">》</a>
       </li>
     </ul>
   </div>

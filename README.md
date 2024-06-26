@@ -498,11 +498,96 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
         - /controller/BoardController.java detail() 메서드 수정
         - /templates/board/list.html 조회수 컬럼 추가
 
-    - 검색 기능
-	- 카테고리 추가(게시판, QnA, 공지사항)
+## 11일차
+- Spring Boot JPA 프로젝트 개발 계속
+    0. RestFull URL이 잘못된 부분
+        - /controller/MainController.java main() 메서드 URL 변경
+
+    1. 조회수 표시
+        - /entity/Board.java 조회수 필드 추가
+        - /service/BoardService.java hitBoard() 메서드 추가
+        - /controller/BoardController.java detail()메서드 수정
+        - /templates/board/list.html 조회수 컬럼 추가
+        - db를 Oracle -> H2
+
+    2. AWS 사용
+        - https://aws.amazon.com/ko/
+        - 회원가입 및 로그인
+            - 매뉴얼 참조(최근 내용으로 참조)
+            - https://blogworks.co.kr/aws-%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85-%EB%A9%94%EB%89%B4%EC%96%BC/
+        - (라이트세일) https://lightsail.aws.amazon.com/
+            - 인스턴스 클릭 > 인스턴스 생성 버튼 클릭
+            - 리전 서울
+            - 인스턴스 이미지 > Linux/Unix
+            - 블루프린트 > 운영체제 OS 전용 클릭 >Ubuntu 22.04 LTS
+            - 인스턴스 플랜 > 듀얼 스택
+            - 크기 선택 > 월별 $12 선택(무료 중 가장 스펙이 좋음)
+            - 인스턴스 확인> 본인이 원하는 이름으로 변경 후
+            - 인스턴스 생성 클릭 !
+            - 실행 중 확인 > ⁝ 클릭 > 관리
+            - 네트워킹 > 고정IP > 아이피명 입력 > 생성
+            - IPv4 방화벽 > 규칙 추가 > 8080 추가
+            - 계정 > SSH 키 > 기본 키 다운로드(*.pem) > 이름변경(옵션)
+            
+        - PuTTY AWS 리눅스서버 연결
+            - https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html 64비트 다운로드 및 설치
+            - PuTTYgen 실행 > Load 기본키 선택 > Save private key 클릭 > .ppk로 저장
+            - PuTTY 실행
+                - Host Name : AWS 고정아이피 입력
+                - Connection > SSH > Auth > Credentials : Private Key를 .ppk로 선택
+                - Session > Saved Session명 입력 > Save
+                - Open 후 콘솔 > login as: ubuntu 입력
+
+        - FileZilla로 FTP 연결
+            - https://filezilla-project.org/download.php 다운로드
+            - 사이트 관리자 열기
+                - 새 사이트
+                - 프로토콜 : SFTP
+                - 호스트 : 고정아이피 입력
+                - 로그온 유형 : 키 파일
+                - 사용자 : ubuntu
+                - 키 파일 : *.ppk 선택
+                - 연결
+        - 설정 변경
+            ```shell
+            > sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime (한국 시간 변경)
+            > hostname
+            > sudo hostnamectl set-hostname ch9729
+            > sudo reboot (서버 재시작)
+
+            > sudo apt-get update (전체서버 패키지 업데이트)
+            > java
+            > sudo apt-get install openjdk-17-jdk
+              Do you want to continue? [Y/n] y
+            > java -version
+            openjdk version "17.0.11" 2024-04-16
+            OpenJDK Runtime Environment (build 17.0.11+9-Ubuntu-122.04.1)
+            OpenJDK 64-Bit Server VM (build 17.0.11+9-Ubuntu-122.04.1, mixed mode, sharing)
+            ```
+        - VSCode
+            - Grade for java > Tasks > build > bootJar
+            - *-SNAPSHOT.jar 생성 확인
+        - FileZilla
+            - *.jar > AWS로 전송
+        - PuTTY
+            ```shell
+            > ls
+            ...
+            > cd bootserver
+            > ls
+            > java -jar backboard-1.0.1-SNAPSHOT.jar 
+            ```
+
+            - sudo java -jar...로 실행하면 안되요~
+            
+
+
+   	- 에러페이지 작업(404, 500, etc)
 	- 비밀번호 찾기, 비밀번호 변경
-	- 조회수 추가
-	
+    - 소셜 로그인(카카오, 네이버, 구글) 구글
+    - 파일업로드 -AWS S3
+    - 오늘 작성한것  new 뱃지
+
 	- 리액트 적용
     - 리액트 프론트엔드 설정
     - thymeleaf -> 리액트로 변경
