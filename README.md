@@ -579,22 +579,93 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
             ```
 
             - sudo java -jar...로 실행하면 안되요~
-            
 
+         - 스프링부트서버 백그라운드 실행 쉘 작성
+         - > nano start.sh
+            ```shell
+            #!/bin/bash
 
-   	- 에러페이지 작업(404, 500, etc)
-	- 비밀번호 찾기, 비밀번호 변경
-    - 소셜 로그인(카카오, 네이버, 구글) 구글
-    - 파일업로드 -AWS S3
-    - 오늘 작성한것  new 뱃지
+            JAR=backboard-1.0.2-SNAPSHOT.jar
+            LOG=/home/ubuntu/bootserver/backbord_log.log
 
-	- 리액트 적용
+            nohup java -jar $JAR > $LOG 2>&1 &
+            ```
+         - 파일권한 바꾸기(실행가능)
+            ```shell
+            > chmod +x start.sh
+            ```
+
+         - > nano stop.sh
+            ```shell
+            #!/bin/bash
+
+            BB_PID=$(ps -ef | grep java | grep backboard | awk '{print $2}')
+
+            if [ -z "$BB_PID" ];
+            then
+               echo "BACKBOARD is not running"
+            else
+               kill -9 $BB_PID
+               echo "BACKBOARD terminated!"
+            fi
+            ```
+         - 파일권한 바꾸기(실행가능)
+            ```shell
+            > chmod +x stop.sh
+            ```
+         
+         - 서버실행
+
+    <img src="https://raw.githubusercontent.com/ch9729/basic-springboot-2024/main/images/sp011.png" width="730">     
+
+## 12일차
+- Spring Boot JPA 프로젝트 개발 계속
+    1. 에러페이지 작업 (404,500, etc) 
+        - application.properties 에러페이지 관련 설정추가
+        - resource/static/img/bg_error.jpg 저장
+        - resource/templates/404.html, 500.html, error.html 페이지 생성
+        - controller/CustomErrorController.java 생성
+
+    2. 비밀번호 초기화
+        - build.gradle 메일을 보내기위한 디펜던시 추가
+        - application.properties 메일설정(네이버) 입력
+        - 네이버 메일 SMTP 설정 > 환경설정 > POT3/IMAP 설정
+
+            <img src="https://raw.githubusercontent.com/ch9729/basic-springboot-2024/main/images/sp012.png" width="730">
+
+        - /config/SecurityConfig.java CSRF 설정 변경(!)
+        - /service/MailService.java 생성
+        - /restcontroller/MailController.java 생성
+        - https://www.postman.com/ 다운로드
+
+## 13일차
+- Spring Boot JPA 프로젝트 개발 계속
+    1. 비밀번호 초기화(계속)
+        - 로그인 화면에서 비밀번호 초기화 버튼, AJAX로 RestAPI로 메일보내기
+        - 메일에 링크 클릭
+        - http://localhost:8080/user/resetpassword (회원가입과 유사하게 개발)
+
+    2. 구글 로그인
+        - https://console.cloud.google.com/ 구글클라우드 콘솔
+        - 프로젝트 생성
+        - OAuth 동의화면 설정
+        - 개발 계속...
+
+    - 리액트 적용
     - 리액트 프론트엔드 설정
     - thymeleaf -> 리액트로 변경
     - Spring Boot RestAPI 작업
+           
+    
 
-	- AWS 라이트세일 가입
-    - 서버 접속 프로그램 설정
-    - 웹서버 배포
-    - 8080 -> 80 서버
-    - http -> https 변경
+## 계속
+- Spring Boot JPA 프로젝트
+    1. 남은 것
+        - 8080 -> 80 서버
+        - http -> https 변경
+
+    - 파일업로드 -AWS S3
+    - 로그인한 사용자 헤더에 표시
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
