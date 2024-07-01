@@ -21,7 +21,7 @@ public class RestMailController {
 
     @PostMapping("/test-email")
     public ResponseEntity<HttpStatus> testEmail() {
-        String to = "karlll@naver.com";
+        String to = "이메일주소";
         String subject = "전송 테스트 메일";
         String message = "테스트 메일 메시지입니다.";
 
