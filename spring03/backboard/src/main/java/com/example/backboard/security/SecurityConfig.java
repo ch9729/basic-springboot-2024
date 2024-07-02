@@ -1,5 +1,6 @@
 package com.example.backboard.security;
 
+import java.util.Collections;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 // 스프링시큐리티 핵심파일!
 @Configuration
@@ -28,6 +31,8 @@ public class SecurityConfig {
         // 로그인, 회원가입 페이지만 로그인하지 않고도 접근 가능                                
             //http.authorizeHttpRequests((atr) -> atr.requestMatchers(new AntPathRequestMatcher("/member/register"),new AntPathRequestMatcher("/member/login"))
             // CSRF 위변조 공격을 막는 부분 해제, 특정 URL은 csrf 공격 리스트에서 제거
+            // CORS 타서버간 접근 권한
+            .cors(corsConfig -> corsConfig.configurationSource(corsConfigurationSource()))
             // REST API 전달시 403 Error 발생
             .csrf((csrf) -> csrf.disable())
             // h2-console 페이지가 frameset, frame으로 구성 CORS와 유사한 옵션추가           
@@ -45,6 +50,17 @@ public class SecurityConfig {
                     .invalidateHttpSession(true))   
             ;
         return http.build();
+    }
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        return request -> {
+            CorsConfiguration config = new CorsConfiguration();
+            config.setAllowedHeaders(Collections.singletonList("*"));
+            config.setAllowedMethods(Collections.singletonList("*"));
+            config.setAllowedOriginPatterns(Collections.singletonList("http://localhost:3000")); //허용할 Origin URL
+            config.setAllowCredentials(true);
+            return config;
+        };
     }
 
     @Bean
