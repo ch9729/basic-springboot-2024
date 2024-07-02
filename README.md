@@ -307,7 +307,7 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
         <img src="https://raw.githubusercontent.com/ch9729/basic-springboot-2024/main/images/sp004.png" width="730">
 
 
-## 6일차
+## 5일차
 - Spring Boot JPA 프로젝트 개발 계속
     1. (설정) build.gradle Thymeleaf 레이아웃 사용을 위한 디펜던시 추가
     2. /templates/layout.html Thymeleaf로 레이아웃 템플릿 생성
@@ -333,7 +333,7 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
     18.  /templates/layout.html에 네비게이션바(navbar) 추가
     19. 테스트로 대량 데이터 추가
 
-## 7일차
+## 6일차
 - Spring Boot JPA 프로젝트 개발 계속
     0. 개녕
     ```sql
@@ -370,7 +370,7 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
         - /repository/MemberRepository.java 인터페이스 생성
         - /service/MemberService.java 생성 setMember() 메서드 작성
 
-## 8일차
+## 7일차
 - Spring Boot JPA 프로젝트 개발 계속
     1. 스프링 시큐리티 계속
         - /security/SecurityConfig.java에 BCryptPasswordEncoder를 빈으로 작업
@@ -414,7 +414,7 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
     
     <img src="https://raw.githubusercontent.com/ch9729/basic-springboot-2024/main/images/sp007.png" width="730">
 
-## 9일차
+## 8일차
 - Spring Boot JPA 프로젝트 개발 계속
    1. 수정, 삭제 기능
       - /entity/Board, Reply.java 수정일자 필드 추가
@@ -454,7 +454,7 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
       - /controller/BoardController.java list() 메서드 추가
       - /templates/board/list.html 검색창 추가, searchForm 폼 영역 추가, 페이징 영역 수정, javaScript 추가
 
-## 10일차
+## 9일차
 - Spring Boot JPA 프로젝트 개발 계속
     1. 검색 가능 - JPA Query
         - @Query 애노테이션 직접 쿼리를 작성
@@ -498,7 +498,7 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
         - /controller/BoardController.java detail() 메서드 수정
         - /templates/board/list.html 조회수 컬럼 추가
 
-## 11일차
+## 10일차
 - Spring Boot JPA 프로젝트 개발 계속
     0. RestFull URL이 잘못된 부분
         - /controller/MainController.java main() 메서드 URL 변경
@@ -618,7 +618,7 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
 
     <img src="https://raw.githubusercontent.com/ch9729/basic-springboot-2024/main/images/sp011.png" width="730">     
 
-## 12일차
+## 11일차
 - Spring Boot JPA 프로젝트 개발 계속
     1. 에러페이지 작업 (404,500, etc) 
         - application.properties 에러페이지 관련 설정추가
@@ -638,7 +638,7 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
         - /restcontroller/MailController.java 생성
         - https://www.postman.com/ 다운로드
 
-## 13일차
+## 12일차
 - Spring Boot JPA 프로젝트 개발 계속
     0. 메일작성 중 생긴 오류
         - 로그인하고 글 적으려면 500에러 발생
@@ -679,7 +679,7 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
     - thymeleaf -> 리액트로 변경
     - Spring Boot RestAPI 작업
 
-## 14일차
+## 13일차
 - 리액트 개요
     - 서버사이드 -> 백엔드
     - 클라이언트사이드 -> 프론트엔드
@@ -828,7 +828,7 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
         - React Developer Tools 설치
 
 
-## 15일차
+## 14일차
 - Spring Boot React연동 프로젝트 개발 계속
     1. 리액트 프로젝트 생성
         - 터미널 /spring03 으로 이동
@@ -871,7 +871,7 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
 
             <img src="https://raw.githubusercontent.com/ch9729/basic-springboot-2024/main/images/react003.png" width="730">
 
-## 16일차
+## 15일차
 - Spring Boot React연동 프로젝트 개발 계속
     1. 상세화면
     
