@@ -1,7 +1,8 @@
 package com.example.backboard.dto;
 
-import groovy.transform.builder.Builder;
+
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

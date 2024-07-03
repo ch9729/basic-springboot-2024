@@ -1,6 +1,5 @@
 package com.example.backboard.dto;
 
-import com.example.backboard.entity.Reply;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
@@ -16,6 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardDto {
+
+    private Long num; // 게시글 번호 24.07.03 신규 추가
 
     private Long bno;
 
