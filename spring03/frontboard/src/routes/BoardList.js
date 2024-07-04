@@ -82,7 +82,7 @@ function BoardList() { // 객체를 만드는 함수
                         <tr className='text-center' key={board.bno}>
                             <td>{board.num}</td>
                             <td className='text-start'>
-                                <Link to={`/boardDetail/${board.bno}`}>{board.title}</Link>
+                                <Link to={`/boardDetail/${board.bno}`} >{board.title}</Link>
                                 &nbsp;
                                 {
                                     board.replyList != null &&

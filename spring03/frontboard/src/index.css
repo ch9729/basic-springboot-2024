@@ -29,3 +29,10 @@ code {
   min-height: 300px;
   height: calc(100vh - 100px - 72px);
 }
+a {
+  text-decoration-line: none;
+}
+
+a:hover {
+  text-decoration-line: underline;
+}

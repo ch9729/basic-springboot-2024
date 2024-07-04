@@ -896,8 +896,13 @@ Java 빅데이터 개발자과정 Spring Boot학습 리포지토리
 
 ## 16일차
 - Spring Boot React연동 프로젝트 개발 계쏙
-    
+    0. npm -> node에서 만든 package manager
+        - yarn, brew(MacOS), chocolatey...
+        - node, npm, npx... 명령어 먼저 섭렵
+
     1. 로그인  
+        - (Front) layout/Header.js 로그인, 회원가입 버튼으로 변경
+        - Login.js 화면 수정
 
     2. 상세화면 완료
 
