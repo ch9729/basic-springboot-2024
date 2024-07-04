@@ -95,8 +95,9 @@ public class RestBoardController {
 
      @GetMapping("/detail/{bno}")
      @ResponseBody
-    public BoardDto detail( @PathVariable("bno") Long bno, HttpServletRequest request) {
+    public Header<BoardDto> detail( @PathVariable("bno") Long bno, HttpServletRequest request) {
      
+        try{
         String prevUrl = request.getHeader("referer");    // 이전페이지 변수에 담기
         log.info(String.format("▶▶▶▶▶▶현재 이전 페이지 : %s", prevUrl));
         //Board board = this.boardService.getBoard(bno);
@@ -121,9 +122,12 @@ public class RestBoardController {
         }
 
         board.setReplyList(replyList);
-
+        
+        return Header.OK(board);
+    }catch(Exception e) {
+        return Header.OK(e.getMessage());
+    }
         // model.addAttribute("board", board);
         // model.addAttribute("prevUrl", prevUrl); //이전 페이지 URL 뷰에 전달
-        return board;
     }
 }
